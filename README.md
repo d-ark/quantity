@@ -1,8 +1,6 @@
 # Quantity
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/quantity`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Implements Unit and Quantity
 
 ## Installation
 
@@ -22,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+meter = Unit.register 'meter'
+centimeter = Unit.register 'centimeter', meter, 0.01
+kilometer = Unit.register 'centimeter', meter, 1000
+
+Quantity.new(1, meter) == Quantity.new(100, centimeter)      # => true
+Quantity.new(78, centimeter).to_s                            # => "78 centimeter"
+Quantity.new(78, meter).convert_to(centimeter).to_s          # => "7800 centimeter"
+Quantity.new(1, kilometer).convert_to(centimeter).to_s       # => "100000 centimeter"
+(Quantity.new(1, meter) - Quantity.new(25, centimeter)).to_s # => "0.75 meter"
+```
 
 ## Development
 
@@ -32,7 +40,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/quantity/fork )
+1. Fork it ( https://github.com/d-ark/quantity/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
